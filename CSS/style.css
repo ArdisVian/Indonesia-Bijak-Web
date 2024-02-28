@@ -100,6 +100,11 @@ body {
     html {
         font-size: 75%;
     }
+
+    /* Menghilangkan hamburger menu */
+    #hamburger-menu {
+        display: none;
+    }
 }
 
 /* Tablet */
