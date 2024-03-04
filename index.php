@@ -2,7 +2,7 @@
 //koneksi database
 $server = "localhost";
 $user = "root";
-$password = "ardis927";
+$password = "";
 $database = "dbcrud";
 
 //make connection
