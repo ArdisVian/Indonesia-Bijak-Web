@@ -36,11 +36,13 @@ body {
     z-index: 9999;
 }
 
+
 .navbar .navbar-logo {
     font-size: 2rem;
     font-weight: 700;
     color: #fff;
 }
+
 
 .navbar .navbar-nav a {
     color: #fff;
@@ -63,6 +65,7 @@ body {
     transition: 0.2s linear;
 }
 
+
 .navbar .navbar-nav a:hover::after {
     transform: scaleX(0.5);
 }
@@ -73,12 +76,23 @@ body {
 
 }
 
+
 .navbar .navbar-extra a:hover {
     color: #373234;
 }
 
 #humberger-menu {
     display: none;
+}
+
+/* NavBar Section */
+
+.card-header {
+    background-color: rgb(255, 101, 101);
+}
+
+.card-footer {
+    background-color: rgb(255, 101, 101);
 }
 
 /* Hero Section */
