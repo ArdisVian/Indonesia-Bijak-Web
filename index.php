@@ -2,7 +2,7 @@
 //koneksi database
 $server = "localhost";
 $user = "root";
-$password = "";
+$password = "ardis927";
 $database = "dbcrud";
 
 //make connection
@@ -12,9 +12,9 @@ $koneksi = mysqli_connect($server, $user, $password, $database) or die(mysqli_er
 if (isset($_POST['bsimpan'])) {
 
     if (isset($_GET['hal']) == "edit") {
-        $edit = mysqli_query($koneksi, "UPDATE tmahasiswa SET NIS = '$_POST[tNIS]', nama = '$_POST[tnama]', tempat_lahir = '$_POST[tlahir]', 
+        $edit = mysqli_query($koneksi, "UPDATE tmahasiswa SET NIK = '$_POST[tNIK]', nama = '$_POST[tnama]', tempat_lahir = '$_POST[tlahir]', 
     tgl_lahir = '$_POST[ttgl_lahir]',  jenis_kelamin = '$_POST[tjenis_kelamin]',  agama = '$_POST[tagama]',  nomor_telepon = '$_POST[tnomor_telepon]',
-     alamat = '$_POST[talamat]' WHERE NIS = '$_GET[id]'");
+     alamat = '$_POST[talamat]' WHERE NIK = '$_GET[id]'");
 
         // test jika edit data berhasil
         if ($edit) {
@@ -30,8 +30,8 @@ if (isset($_POST['bsimpan'])) {
         }
     } else {
         //save data
-        $save = mysqli_query($koneksi, " INSERT INTO tmahasiswa (NIS, nama, tempat_lahir, tgl_lahir, jenis_kelamin, agama, alamat, nomor_telepon) VALUE 
-  ( '$_POST[tNIS]', '$_POST[tnama]', '$_POST[tlahir]', '$_POST[ttgl_lahir]', '$_POST[tjenis_kelamin]', '$_POST[tagama]', '$_POST[talamat]', '$_POST[tnomor_telepon]')");
+        $save = mysqli_query($koneksi, " INSERT INTO tmahasiswa (NIK, nama, tempat_lahir, tgl_lahir, jenis_kelamin, agama, alamat, nomor_telepon) VALUE 
+  ( '$_POST[tNIK]', '$_POST[tnama]', '$_POST[tlahir]', '$_POST[ttgl_lahir]', '$_POST[tjenis_kelamin]', '$_POST[tagama]', '$_POST[talamat]', '$_POST[tnomor_telepon]')");
 
         // test jika simpan data berhasil
         if ($save) {
@@ -50,7 +50,7 @@ if (isset($_POST['bsimpan'])) {
 
 }
 
-$vNIS = "";
+$vNIK = "";
 $vnama = "";
 $vtlahir = "";
 $vtgl_lahir = "";
@@ -61,10 +61,10 @@ $vno_telp = "";
 //test btn save/delete
 if (isset($_GET["hal"])) {
     if ($_GET['hal'] == 'edit') {
-        $tampil = mysqli_query($koneksi, "SELECT * FROM tmahasiswa WHERE NIS =  '$_GET[id]'");
+        $tampil = mysqli_query($koneksi, "SELECT * FROM tmahasiswa WHERE NIK =  '$_GET[id]'");
         $data = mysqli_fetch_array($tampil);
         if ($data) {
-            $vNIS = $data['NIS'];
+            $vNIK = $data['NIK'];
             $vnama = $data['nama'];
             $vtlahir = $data['tempat_lahir'];
             $vtgl_lahir = $data['tgl_lahir'];
@@ -75,7 +75,7 @@ if (isset($_GET["hal"])) {
         }
 
     } else if ($_GET['hal'] == 'hapus') {
-        $hapus = mysqli_query($koneksi, "DELETE FROM tmahasiswa WHERE NIS = '$_GET[id]'");
+        $hapus = mysqli_query($koneksi, "DELETE FROM tmahasiswa WHERE NIK = '$_GET[id]'");
         // test jika hapus data berhasil
         if ($hapus) {
             echo "<script>
@@ -187,19 +187,39 @@ if (isset($_GET["hal"])) {
 
 
     <!-- Kandidat Section start -->
-    <section class="kandidat" id="Kandidat">
-
+    <section class="kandidat" id="  Kandidat">
         <div class="container">
-            <h2>Kandidat Presiden</h2>
-            <ul>
-                <li>Anies Baswedan</li>
-                <li>Prabowo Subianto</li>
-                <li>Ganjar Pranowo</li>
-            </ul>
+            <h2 class="text-center mb-4">Kandidat Presiden</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow">
+                        <img src="Assets/Anies.jpg" class="card-img-top" alt="Anies Baswedan">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Anies Baswedan</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow">
+                        <img src="Assets/Prabowo.jpg" class="card-img-top" alt="Prabowo Subianto">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Prabowo Subianto</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow">
+                        <img src="Assets/Ganjar.jpg" class="card-img-top" alt="Ganjar Pranowo">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Ganjar Pranowo</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </section>
     <!-- Kandidat Section end -->
+
 
     <!-- LOGIN Section start -->
     <section class="login" id="login">
@@ -219,9 +239,9 @@ if (isset($_GET["hal"])) {
                             <form method="POST">
 
                                 <div class="mb-3">
-                                    <label class="form-label">NIS</label>
-                                    <input type="text" name="tNIS" value="<?= $vNIS ?>" class="form-control"
-                                        placeholder="NIS">
+                                    <label class="form-label">NIK</label>
+                                    <input type="text" name="tNIK" value="<?= $vNIK ?>" class="form-control"
+                                        placeholder="NIK">
                                 </div>
 
                                 <div class="mb-3">
@@ -323,7 +343,7 @@ if (isset($_GET["hal"])) {
                     <table class="table table-dark table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">NIS</th>
+                                <th scope="col">NIK</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Tempat Lahir</th>
                                 <th scope="col">Tanggal Lahir</th>
@@ -338,9 +358,9 @@ if (isset($_GET["hal"])) {
 
                         if (isset($_POST['bcari'])) {
                             $keyword = $_POST['tcari'];
-                            $q = "SELECT * FROM tmahasiswa WHERE NIS LIKE '%$keyword%' or nama LIKE '%$keyword%' ORDER BY NIS";
+                            $q = "SELECT * FROM tmahasiswa WHERE NIK LIKE '%$keyword%' or nama LIKE '%$keyword%' ORDER BY NIK";
                         } else {
-                            $q = "SELECT * FROM tmahasiswa ORDER BY NIS ASC";
+                            $q = "SELECT * FROM tmahasiswa ORDER BY NIK ASC";
                         }
 
                         $tampil = mysqli_query($koneksi, $q);
@@ -351,7 +371,7 @@ if (isset($_GET["hal"])) {
                                 <!-- Data Mahasiswa akan ditampilkan di sini -->
                                 <tr>
                                     <td>
-                                        <?= $data['NIS'] ?>
+                                        <?= $data['NIK'] ?>
                                     </td>
                                     <td>
                                         <?= $data['nama'] ?>
@@ -375,8 +395,8 @@ if (isset($_GET["hal"])) {
                                         <?= $data['nomor_telepon'] ?>
                                     </td>
                                     <td>
-                                        <a href="index.php?hal=edit&id=<?= $data['NIS'] ?>" class="btn btn-warning">Edit</a>
-                                        <a href="index.php?hal=hapus&id=<?= $data['NIS'] ?>" class="btn btn-danger"
+                                        <a href="index.php?hal=edit&id=<?= $data['NIK'] ?>" class="btn btn-warning">Edit</a>
+                                        <a href="index.php?hal=hapus&id=<?= $data['NIK'] ?>" class="btn btn-danger"
                                             onclick="return confirm('Yakin Hapus Data?')">Hapus</a>
                                     </td>
                                 </tr>
@@ -409,5 +429,49 @@ if (isset($_GET["hal"])) {
         crossorigin="anonymous"></script>
 
 </body>
+
+<!-- Footer Section start -->
+<footer class="footer mt-auto py-3 bg-dark text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Tentang Kami</h5>
+                <p>Indonesia Bijak adalah platform yang bertujuan untuk meningkatkan partisipasi dalam proses demokrasi
+                    melalui penyediaan informasi yang relevan dan akurat tentang pemilihan umum.</p>
+            </div>
+            <!-- <div class="col-md-3">
+                <h5>Link Cepat</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#Home" class="text-white">Home</a></li>
+                    <li><a href="#Partai" class="text-white">Partai</a></li>
+                    <li><a href="#Kandidat" class="text-white">Kandidat</a></li>
+                    <li><a href="#Program" class="text-white">Program</a></li>
+                    <li><a href="#Lokasi" class="text-white">Lokasi</a></li>
+                    <li><a href="#Contact" class="text-white">Kontak</a></li>
+                    <li><a href="#About" class="text-white">Tentang Kami</a></li>
+                </ul>
+            </div> -->
+            <div class="col-md-3 offset-md-3">
+                <h5>Kontak</h5>
+                <ul class="list-unstyled">
+                    <li>Alamat: Jl. Pemilu No. 1, Jakarta</li>
+                    <li>Telp: (021) 1234-5678</li>
+                    <li>Email: info@indonesiabijak.com</li>
+                </ul>
+            </div>
+
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center">© 2024 Indonesia Bijak. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section end -->
+
+
+
 
 </html>
