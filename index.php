@@ -2,7 +2,7 @@
 //koneksi database
 $server = "localhost";
 $user = "root";
-$password = "ardis927";
+$password = "";
 $database = "dbcrud";
 
 //make connection
@@ -166,7 +166,7 @@ if (isset($_GET["hal"])) {
 
 
     <!-- Hero Section start -->
-    <section class="hero" id="home">
+    <section class="hero" id="Home">
 
         <main class="content" style="position: relative; margin:auto;">
             <h1 style="align-items: center;">Mari Bijak Memilih Untuk Negeri</h1>
@@ -187,7 +187,7 @@ if (isset($_GET["hal"])) {
 
 
     <!-- Kandidat Section start -->
-    <section class="kandidat" id="  Kandidat">
+    <section class="kandidat" id="Kandidat">
         <div class="container">
             <h2 class="text-center mb-4">Kandidat Presiden</h2>
             <div class="row">
@@ -233,7 +233,7 @@ if (isset($_GET["hal"])) {
                 <div class="col-md-8 mx-auto">
                     <div class="card">
                         <div class="card-header text-center">
-                            Input Data Mahasiswa
+                            Input Data
                         </div>
                         <div class="card-body">
                             <form method="POST">
@@ -432,7 +432,7 @@ if (isset($_GET["hal"])) {
 
 <!-- Footer Section start -->
 <footer class="footer mt-auto py-3 bg-dark text-white">
-    <div class="container">
+    <div class="container" id="About">
         <div class="row">
             <div class="col-md-6">
                 <h5>Tentang Kami</h5>
