@@ -18,6 +18,11 @@ if (isset($_POST['login'])) {
         // Redirect ke halaman dashboard atau halaman lain setelah login berhasil
         header("Location: dashboard.php");
         exit;
+    } elseif ($username === 'user' && $password === 'user123') {
+        $_SESSION['username'] = $username;
+        // Redirect ke halaman dashboard atau halaman lain setelah login berhasil
+        header("Location: user.php");
+        exit;
     } else {
         // Jika login gagal, tampilkan pesan kesalahan
         $error = "Username atau password salah!";
