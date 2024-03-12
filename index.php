@@ -155,7 +155,7 @@ if (isset($_GET["hal"])) {
                         <a class="nav-link" href="#About">Tentang Kami</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#login">Login</a>
+                        <a class="nav-link" href="login.php">Login</a>
                     </li>
                 </ul>
             </div>
