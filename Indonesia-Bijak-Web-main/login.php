@@ -2,13 +2,13 @@
 session_start(); // Mulai sesi
 
 // Cek jika pengguna sudah login, jika ya, redirect ke halaman lain
-if (isset ($_SESSION['username'])) {
+if (isset($_SESSION['username'])) {
     header("Location: dashboard.php"); // Redirect ke halaman dashboard jika sudah login
     exit;
 }
 
 // Cek jika form login disubmit
-if (isset ($_POST['login'])) {
+if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -61,7 +61,7 @@ if (isset ($_POST['login'])) {
 
                             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
 
-                            <?php if (isset ($error)) { ?>
+                            <?php if (isset($error)) { ?>
                                 <div class="alert alert-danger" role="alert">
                                     <?php echo $error; ?>
                                 </div>
@@ -90,7 +90,7 @@ if (isset ($_POST['login'])) {
 
                 </div>
                 <div class="col-sm-6 px-0 d-none d-sm-block">
-                    <img src="https://images2.alphacoders.com/463/463394.jpg" alt="Login image" class="w-100 vh-100"
+                    <img src="https://images5.alphacoders.com/134/1348274.png" alt="Login image" class="w-100 vh-100"
                         style="object-fit: cover; object-position: right;">
                 </div>
             </div>
