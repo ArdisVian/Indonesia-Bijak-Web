@@ -1,14 +1,56 @@
 MySQL Query:
-CREATE TABLE `tmahasiswa` (
-    `NIK` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-    `nama` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-    `tempat_lahir` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-    `tgl_lahir` DATE NULL DEFAULT NULL,
-    `jenis_kelamin` ENUM('laki-laki','perempuan') NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-    `agama` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-    `nomor_telepon` VARCHAR(15) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-    `alamat` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-    PRIMARY KEY (`NIK`) USING BTREE
+USER:
+CREATE TABLE `user` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`nama` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`username` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`password` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`role` VARCHAR(10) NULL DEFAULT 'user' COLLATE 'utf8mb4_0900_ai_ci',
+	`NIK` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`tgl_lahir` DATE NULL DEFAULT NULL,
+	`tempat_lahir` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`alamat` VARCHAR(120) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`agama` VARCHAR(25) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`jenis_kelamin` ENUM('laki-laki','perempuan') NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`nomor_telepon` VARCHAR(15) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`email` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=8
+;
+
+admin:
+CREATE TABLE `tadmin` (
+	`admin_id` INT(10) NOT NULL AUTO_INCREMENT,
+	`username` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`password` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`role` VARCHAR(50) NULL DEFAULT 'admin' COLLATE 'utf8mb4_0900_ai_ci',
+	PRIMARY KEY (`admin_id`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=3
+;
+
+
+Partai:
+CREATE TABLE `partai` (
+	`id_partai` INT(10) NULL DEFAULT NULL,
+	`nama_partai` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci'
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+;
+
+
+Kandidat Capres:
+CREATE TABLE `capres` (
+	`id_cawapres` INT(10) NULL DEFAULT NULL,
+	`nama_capres` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`visi` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`misi` VARCHAR(120) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci'
 )
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB

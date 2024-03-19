@@ -1,6 +1,14 @@
 <?php
 session_start(); // Mulai sesi
 
+// Buat koneksi ke database
+$server = "localhost";
+$username = "root";
+$password = "";
+$database = "dbcrud";
+
+$conn = mysqli_connect($server, $username, $password, $database);
+
 // Cek jika pengguna sudah login, jika ya, redirect ke halaman lain
 if (isset ($_SESSION['username'])) {
     header("Location: dashboard.php"); // Redirect ke halaman dashboard jika sudah login
@@ -12,23 +20,57 @@ if (isset ($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if ($username === 'admin' && $password === 'admin123') {
-        // Simpan data pengguna ke sesi
-        $_SESSION['username'] = $username;
-        // Redirect ke halaman dashboard atau halaman lain setelah login berhasil
-        header("Location: dashboard.php");
-        exit;
-    } elseif ($username === 'user' && $password === 'user123') {
-        $_SESSION['username'] = $username;
-        // Redirect ke halaman dashboard atau halaman lain setelah login berhasil
-        header("Location: user.php");
-        exit;
+    // Query untuk memeriksa username dan password dalam tabel user
+    $query_user = "SELECT * FROM user WHERE username = '$username'";
+    $result_user = mysqli_query($conn, $query_user);
+
+
+    // Query untuk memeriksa username dan password dalam tabel admin
+    $query_admin = "SELECT * FROM tadmin WHERE username = '$username'";
+    $result_admin = mysqli_query($conn, $query_admin);
+
+    // Memeriksa apakah pengguna terdapat dalam tabel user
+    if (mysqli_num_rows($result_user) == 1) {
+        $row = mysqli_fetch_assoc($result_user);
+
+        // Verifikasi password menggunakan password_verify()
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['username'] = $row['username'];
+
+            // Redirect ke halaman dashboard atau halaman lain sesuai dengan role pengguna
+            if ($row['role'] == 'user') {
+                header("Location: user.php");
+                exit;
+            }
+        } else {
+            // Jika password tidak cocok, tampilkan pesan kesalahan
+            $error = "Username atau password salah!";
+        }
+    }
+    // Memeriksa apakah pengguna terdapat dalam tabel admin
+    elseif (mysqli_num_rows($result_admin) == 1) {
+        $row = mysqli_fetch_assoc($result_admin);
+
+        // Membandingkan password yang dimasukkan dengan password yang disimpan dalam database
+        if ($password === $row['password']) {
+            $_SESSION['username'] = $row['username'];
+
+            // Redirect ke halaman dashboard atau halaman lain sesuai dengan role pengguna
+            if ($row['role'] == 'admin') {
+                header("Location: dashboard.php");
+                exit;
+            }
+        } else {
+            // Jika password tidak cocok, tampilkan pesan kesalahan
+            $error = "Username atau password salah!";
+        }
     } else {
-        // Jika login gagal, tampilkan pesan kesalahan
+        // Jika pengguna tidak ditemukan di kedua tabel, tampilkan pesan kesalahan
         $error = "Username atau password salah!";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,72 +78,74 @@ if (isset ($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Indonesia Bijak</title>
-    <!-- Tautkan CSS Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="CSS/login.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
-    <!-- Section: Design Block -->
-    <section class="vh-100">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6 text-black">
 
-                    <div class="px-5 ms-xl-4">
-                        <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i>
-                        <span class="h1 fw-bold mb-0">Indonesia Bijak</span>
+    <div class="main">
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
+                        <a href="register.php" class="signup-image-link">Create an account</a>
                     </div>
 
-                    <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-
-                        <form method="post" style="width: 23rem;">
-
-                            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
-
+                    <div class="signin-form">
+                        <h2 class="form-title">Login</h2>
+                        <form method="POST" class="register-form" id="login-form">
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="your_name" placeholder="Your Name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="your_pass" placeholder="Password" />
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
+                                    me</label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="login" id="signin" class="form-submit" value="Log in" />
+                            </div>
+                            <!-- Menampilkan pesan kesalahan jika ada -->
                             <?php if (isset ($error)) { ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <?php echo $error; ?>
+                                <div class="form-group">
+                                    <p class="error-message">
+                                        <?php echo $error; ?>
+                                    </p>
                                 </div>
                             <?php } ?>
-
-                            <div class="form-outline mb-4">
-                                <input type="text" id="username" name="username" class="form-control form-control-lg"
-                                    required>
-                                <label class="form-label" for="username">Username</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input type="password" id="password" name="password"
-                                    class="form-control form-control-lg" required>
-                                <label class="form-label" for="password">Password</label>
-                            </div>
-
-                            <button class="btn btn-info btn-lg btn-block" type="submit" name="login">Login</button>
-
-                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
-                            <p>Don't have an account? <a href="register.php" class="link-info">Register here</a></p>
-
                         </form>
-
+                        <div class="social-login">
+                            <span class="social-label">Or login with</span>
+                            <ul class="socials">
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
-
-                </div>
-                <div class="col-sm-6 px-0 d-none d-sm-block">
-                    <img src="https://images2.alphacoders.com/463/463394.jpg" alt="Login image" class="w-100 vh-100"
-                        style="object-fit: cover; object-position: right;">
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Section: Design Block -->
+        </section>
 
-    <!-- Tautkan script JavaScript Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    </div>
+
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

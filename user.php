@@ -6,13 +6,13 @@ $password = "";
 $database = "dbcrud";
 
 //make connection
-$koneksi = mysqli_connect($server, $user, $password, $database) or die(mysqli_error($koneksi));
+$koneksi = mysqli_connect($server, $user, $password, $database) or die (mysqli_error($koneksi));
 
 //tombol simpan
-if (isset($_POST['bsimpan'])) {
+if (isset ($_POST['bsimpan'])) {
 
-    if (isset($_GET['hal']) == "edit") {
-        $edit = mysqli_query($koneksi, "UPDATE tmahasiswa SET NIK = '$_POST[tNIK]', nama = '$_POST[tnama]', tempat_lahir = '$_POST[tlahir]', 
+    if (isset ($_GET['hal']) == "edit") {
+        $edit = mysqli_query($koneksi, "UPDATE user SET NIK = '$_POST[tNIK]', nama = '$_POST[tnama]', tempat_lahir = '$_POST[tlahir]', 
     tgl_lahir = '$_POST[ttgl_lahir]',  jenis_kelamin = '$_POST[tjenis_kelamin]',  agama = '$_POST[tagama]',  nomor_telepon = '$_POST[tnomor_telepon]',
      alamat = '$_POST[talamat]' WHERE NIK = '$_GET[id]'");
 
@@ -30,7 +30,7 @@ if (isset($_POST['bsimpan'])) {
         }
     } else {
         //save data
-        $save = mysqli_query($koneksi, " INSERT INTO tmahasiswa (NIK, nama, tempat_lahir, tgl_lahir, jenis_kelamin, agama, alamat, nomor_telepon) VALUE 
+        $save = mysqli_query($koneksi, " INSERT INTO user (NIK, nama, tempat_lahir, tgl_lahir, jenis_kelamin, agama, alamat, nomor_telepon) VALUE 
   ( '$_POST[tNIK]', '$_POST[tnama]', '$_POST[tlahir]', '$_POST[ttgl_lahir]', '$_POST[tjenis_kelamin]', '$_POST[tagama]', '$_POST[talamat]', '$_POST[tnomor_telepon]')");
 
         // test jika simpan data berhasil
@@ -59,9 +59,9 @@ $vagama = "";
 $valamat = "";
 $vno_telp = "";
 //test btn save/delete
-if (isset($_GET["hal"])) {
+if (isset ($_GET["hal"])) {
     if ($_GET['hal'] == 'edit') {
-        $tampil = mysqli_query($koneksi, "SELECT * FROM tmahasiswa WHERE NIK =  '$_GET[id]'");
+        $tampil = mysqli_query($koneksi, "SELECT * FROM user WHERE NIK =  '$_GET[id]'");
         $data = mysqli_fetch_array($tampil);
         if ($data) {
             $vNIK = $data['NIK'];
@@ -75,7 +75,7 @@ if (isset($_GET["hal"])) {
         }
 
     } else if ($_GET['hal'] == 'hapus') {
-        $hapus = mysqli_query($koneksi, "DELETE FROM tmahasiswa WHERE NIK = '$_GET[id]'");
+        $hapus = mysqli_query($koneksi, "DELETE FROM user WHERE NIK = '$_GET[id]'");
         // test jika hapus data berhasil
         if ($hapus) {
             echo "<script>
@@ -116,7 +116,7 @@ if (isset($_GET["hal"])) {
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -241,7 +241,7 @@ if (isset($_GET["hal"])) {
                                 <div class="mb-3">
                                     <label class="form-label">NIK</label>
                                     <input type="text" name="tNIK" value="<?= $vNIK ?>" class="form-control"
-                                        placeholder="NIK" <?php if (isset($_GET['hal']) && $_GET['hal'] == 'edit')
+                                        placeholder="NIK" <?php if (isset ($_GET['hal']) && $_GET['hal'] == 'edit')
                                             echo 'readonly'; ?>>
                                 </div>
 
@@ -359,11 +359,11 @@ if (isset($_GET["hal"])) {
                         </thead>
                         <?php
 
-                        if (isset($_POST['bcari'])) {
+                        if (isset ($_POST['bcari'])) {
                             $keyword = $_POST['tcari'];
-                            $q = "SELECT * FROM tmahasiswa WHERE NIK LIKE '%$keyword%' or nama LIKE '%$keyword%' ORDER BY NIK";
+                            $q = "SELECT * FROM user WHERE NIK LIKE '%$keyword%' or nama LIKE '%$keyword%' ORDER BY NIK";
                         } else {
-                            $q = "SELECT * FROM tmahasiswa ORDER BY NIK ASC";
+                            $q = "SELECT * FROM user ORDER BY NIK ASC";
                         }
 
                         $tampil = mysqli_query($koneksi, $q);
@@ -425,7 +425,7 @@ if (isset($_GET["hal"])) {
     </script>
 
     <!-- My Javascript -->
-    <script src="JS/script.js"></script>
+    <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

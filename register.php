@@ -5,9 +5,10 @@ include "koneksi.php";
 // Inisialisasi variabel
 $username = "";
 $password = "";
-$full_name = "";
+$nama = "";
+$email = "";
 $confirm_password = "";
-$username_error = $password_error = $confirm_password_error = "";
+$username_error = $password_error = $confirm_password_error = $email_error = "";
 
 // Check jika form telah disubmit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,8 +16,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty (trim($_POST["username"]))) {
         $username_error = "Username tidak boleh kosong";
     } else {
+        // Periksa apakah username sudah ada di database
         $username = trim($_POST["username"]);
+        $sql_check_username = "SELECT id FROM user WHERE username = ?";
+        if ($stmt_check_username = mysqli_prepare($conn, $sql_check_username)) {
+            mysqli_stmt_bind_param($stmt_check_username, "s", $param_username);
+            $param_username = $username;
+            if (mysqli_stmt_execute($stmt_check_username)) {
+                mysqli_stmt_store_result($stmt_check_username);
+                if (mysqli_stmt_num_rows($stmt_check_username) > 0) {
+                    $username_error = "Username sudah digunakan";
+                }
+            } else {
+                echo "Terjadi kesalahan. Silakan coba lagi nanti.";
+            }
+            mysqli_stmt_close($stmt_check_username);
+        }
     }
+
+    // Validasi email
+    if (empty (trim($_POST["email"]))) {
+        $email_error = "Email tidak boleh kosong";
+    } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        $email_error = "Format email tidak valid";
+    } else {
+        $email = trim($_POST["email"]);
+
+        // Periksa apakah email sudah ada di database
+        $sql_check_email = "SELECT id FROM user WHERE email = ?";
+        if ($stmt_check_email = mysqli_prepare($conn, $sql_check_email)) {
+            mysqli_stmt_bind_param($stmt_check_email, "s", $param_email);
+            $param_email = $email;
+            if (mysqli_stmt_execute($stmt_check_email)) {
+                mysqli_stmt_store_result($stmt_check_email);
+                if (mysqli_stmt_num_rows($stmt_check_email) > 0) {
+                    $email_error = "Email sudah digunakan";
+                }
+            } else {
+                echo "Terjadi kesalahan. Silakan coba lagi nanti.";
+            }
+            mysqli_stmt_close($stmt_check_email);
+        }
+
+    }
+
+
 
     // Validasi password
     if (empty (trim($_POST["password"]))) {
@@ -37,19 +81,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // Validasi email
+    if (empty (trim($_POST["email"]))) {
+        $email_error = "Email tidak boleh kosong";
+    } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        $email_error = "Format email tidak valid";
+    } else {
+        $email = trim($_POST["email"]);
+    }
+
     // Jika tidak terdapat error, masukkan data ke database
-    if (empty ($username_error) && empty ($password_error) && empty ($confirm_password_error)) {
+    if (empty ($username_error) && empty ($password_error) && empty ($confirm_password_error) && empty ($email_error)) {
         // Prepare statement untuk memasukkan data
-        $sql = "INSERT INTO user (username, password, full_name) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO user (username, password, email, nama) VALUES (?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variabel ke statement sebagai parameter
-            mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_full_name);
+            mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_password, $param_email, $param_nama);
 
             // Set parameter
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Hash password
-            $param_full_name = $_POST["full_name"];
+            $param_email = $email;
+            $param_nama = $_POST["nama"];
 
             // Execute statement
             if (mysqli_stmt_execute($stmt)) {
@@ -69,52 +123,86 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
-    <div class="container">
-        <h2>Register</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
-                <span class="error">
-                    <?php echo $username_error; ?>
-                </span>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="name" placeholder="Your Username" />
+                                <span class="error">
+                                    <?php echo $username_error; ?>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Your Email" />
+                                <span class="error">
+                                    <?php echo $email_error; ?>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="pass" placeholder="Password" />
+                                <span class="error">
+                                    <?php echo $password_error; ?>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="confirm_password" id="re_pass"
+                                    placeholder="Repeat your password" />
+                                <span class="error">
+                                    <?php echo $confirm_password_error; ?>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
+                                    statements in <a href="#" class="term-service">Terms of service</a></label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
+                        <a href="login.php" class="signup-image-link">I am already member</a>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
-                <span class="error">
-                    <?php echo $password_error; ?>
-                </span>
-            </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control"
-                    value="<?php echo $confirm_password; ?>">
-                <span class="error">
-                    <?php echo $confirm_password_error; ?>
-                </span>
-            </div>
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" name="full_name" class="form-control" value="<?php echo $full_name; ?>">
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Register">
-            </div>
-            <p>Sudah memiliki akun? <a href="login.php">Login disini</a>.</p>
-        </form>
+        </section>
     </div>
-</body>
+
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="JS/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
