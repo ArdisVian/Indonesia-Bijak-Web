@@ -87,7 +87,7 @@
                         <img src="Assets/aniesimin.png" class="card-img-top" alt="Anies Baswedan"
                             style="width: 100%; height: 170px;">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Anies Baswedan</h5>
+                            <h5 class="card-title">Anies Muhaimin</h5>
                             <p class="learn-more" onclick="window.location.href='kandidatpres/aniesimin.php'">Pelajari
                                 Selengkapnya →</p>
                         </div>
@@ -97,7 +97,7 @@
                     <div class="card shadow">
                         <img src="Assets/prabowogibran.jpg" class="card-img-top" alt="Prabowo Subianto">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Prabowo Subianto</h5>
+                            <h5 class="card-title">Prabowo Gibran</h5>
                             <p class="learn-more" onclick="window.location.href='prabowo.php'">Pelajari Selengkapnya →
                             </p>
                         </div>
@@ -108,7 +108,7 @@
                         <img src="Assets/ganjarmahfud.jpg" class="card-img-top" alt="Ganjar Pranowo"
                             style="width: 100%; height: 170px;">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Ganjar Pranowo</h5>
+                            <h5 class="card-title">Ganjar Mahfud</h5>
                             <p class="learn-more" onclick="window.location.href='ganjar.php'">Pelajari Selengkapnya →
                             </p>
                         </div>
