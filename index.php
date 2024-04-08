@@ -53,9 +53,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#Kandidat">Kandidat</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#Program">Program</a>
-                    </li>
+                    </li> -->
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#Lokasi">Lokasi</a>
                     </li> -->
@@ -94,6 +94,7 @@
     <!-- Partai Section start -->
     <section class="partai-slideshow" id="Partai">
         <div class="container">
+            <br>
             <h2 class="text-center mb-4 d-flex align-items-center justify-content-center" style="height: 80px;">
                 Kandidat Partai
             </h2>

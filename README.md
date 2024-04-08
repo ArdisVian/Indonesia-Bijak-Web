@@ -18,11 +18,23 @@ CREATE TABLE `user` (
 )
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=8
+AUTO_INCREMENT=9
 ;
-
-
-
+==========================================
+Pilihan_User:
+CREATE TABLE `pilihan_user` (
+	`pilihan_id` INT(10) NOT NULL AUTO_INCREMENT,
+	`id_partai` INT(10) NULL DEFAULT NULL,
+	`id_capres` INT(10) NULL DEFAULT NULL,
+	`NIK` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`tgl_coblos` DATE NULL DEFAULT NULL,
+	PRIMARY KEY (`pilihan_id`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=5
+;
+==========================================
 Partai:
 CREATE TABLE `partai` (
 	`id_partai` INT(10) NULL DEFAULT NULL,
@@ -31,11 +43,10 @@ CREATE TABLE `partai` (
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
 ;
-
-
+==========================================
 Kandidat Capres:
 CREATE TABLE `capres` (
-	`id_cawapres` INT(10) NULL DEFAULT NULL,
+	`id_capres` INT(10) NULL DEFAULT NULL,
 	`nama_capres` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`visi` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`misi` VARCHAR(120) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci'
