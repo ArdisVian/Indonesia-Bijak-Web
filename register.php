@@ -3,21 +3,39 @@
 include "koneksi.php";
 
 // Inisialisasi variabel
-$username = "";
-$password = "";
-$nama = "";
-$email = "";
-$confirm_password = "";
-$username_error = $password_error = $confirm_password_error = $email_error = "";
+$nik = $username = $password = $nama = $email = $confirm_password = "";
+$nik_error = $username_error = $password_error = $confirm_password_error = $email_error = "";
 
 // Check jika form telah disubmit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validasi NIK
+    if (empty(trim($_POST["nik"]))) {
+        $nik_error = "NIK tidak boleh kosong";
+    } else {
+        $nik = trim($_POST["nik"]);
+        // Periksa apakah NIK sudah ada di database
+        $sql_check_nik = "SELECT id FROM user WHERE nik = ?";
+        if ($stmt_check_nik = mysqli_prepare($conn, $sql_check_nik)) {
+            mysqli_stmt_bind_param($stmt_check_nik, "s", $param_nik);
+            $param_nik = $nik;
+            if (mysqli_stmt_execute($stmt_check_nik)) {
+                mysqli_stmt_store_result($stmt_check_nik);
+                if (mysqli_stmt_num_rows($stmt_check_nik) > 0) {
+                    $nik_error = "NIK sudah digunakan";
+                }
+            } else {
+                echo "Terjadi kesalahan. Silakan coba lagi nanti.";
+            }
+            mysqli_stmt_close($stmt_check_nik);
+        }
+    }
+
     // Validasi username
-    if (empty (trim($_POST["username"]))) {
+    if (empty(trim($_POST["username"]))) {
         $username_error = "Username tidak boleh kosong";
     } else {
-        // Periksa apakah username sudah ada di database
         $username = trim($_POST["username"]);
+        // Periksa apakah username sudah ada di database
         $sql_check_username = "SELECT id FROM user WHERE username = ?";
         if ($stmt_check_username = mysqli_prepare($conn, $sql_check_username)) {
             mysqli_stmt_bind_param($stmt_check_username, "s", $param_username);
@@ -35,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validasi email
-    if (empty (trim($_POST["email"]))) {
+    if (empty(trim($_POST["email"]))) {
         $email_error = "Email tidak boleh kosong";
     } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
         $email_error = "Format email tidak valid";
@@ -63,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Validasi password
-    if (empty (trim($_POST["password"]))) {
+    if (empty(trim($_POST["password"]))) {
         $password_error = "Password tidak boleh kosong";
     } elseif (strlen(trim($_POST["password"])) < 6) {
         $password_error = "Password minimal terdiri dari 6 karakter";
@@ -72,17 +90,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validasi konfirmasi password
-    if (empty (trim($_POST["confirm_password"]))) {
+    if (empty(trim($_POST["confirm_password"]))) {
         $confirm_password_error = "Konfirmasi password tidak boleh kosong";
     } else {
         $confirm_password = trim($_POST["confirm_password"]);
-        if (empty ($password_error) && ($password != $confirm_password)) {
+        if (empty($password_error) && ($password != $confirm_password)) {
             $confirm_password_error = "Password yang dikonfirmasi tidak sesuai";
         }
     }
 
     // Validasi email
-    if (empty (trim($_POST["email"]))) {
+    if (empty(trim($_POST["email"]))) {
         $email_error = "Email tidak boleh kosong";
     } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
         $email_error = "Format email tidak valid";
@@ -91,15 +109,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Jika tidak terdapat error, masukkan data ke database
-    if (empty ($username_error) && empty ($password_error) && empty ($confirm_password_error) && empty ($email_error)) {
+    if (empty($nik_error) && empty($username_error) && empty($password_error) && empty($confirm_password_error) && empty($email_error)) {
         // Prepare statement untuk memasukkan data
-        $sql = "INSERT INTO user (username, password, email, nama) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO user (nik, username, password, email, nama) VALUES (?, ?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variabel ke statement sebagai parameter
-            mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_password, $param_email, $param_nama);
+            mysqli_stmt_bind_param($stmt, "sssss", $param_nik, $param_username, $param_password, $param_email, $param_nama);
 
             // Set parameter
+            $param_nik = $nik;
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Hash password
             $param_email = $email;
@@ -122,7 +141,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($conn);
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -156,6 +174,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <input type="text" name="username" id="name" placeholder="Your Username" />
                                 <span class="error">
                                     <?php echo $username_error; ?>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="nik"><i class="zmdi zmdi-account-box"></i></label>
+                                <input type="text" name="nik" id="nik" placeholder="Your NIK" />
+                                <span class="error">
+                                    <?php echo $nik_error; ?>
                                 </span>
                             </div>
                             <div class="form-group">

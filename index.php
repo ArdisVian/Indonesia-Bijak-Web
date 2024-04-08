@@ -16,6 +16,10 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
 
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
@@ -29,7 +33,10 @@
     <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Indonesia Bijak</a>
+            <a class="navbar-brand" href="#">
+                <img src="Assets/logo.png" alt="Logo" width="150" height="67" class="d-inline-block align-top"
+                    style="border-radius: 10px;">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -49,17 +56,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#Program">Program</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#Lokasi">Lokasi</a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#Contact">Kontak</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" href="#About">Tentang Kami</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
+                        <a class="nav-link" href="login.php">
+                            <button type="button" class="btn btn-primary">Login</button>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -74,17 +83,89 @@
 
         <main class="content" style="position: relative; margin:auto;">
             <h1 style="align-items: center;">Mari Bijak Memilih Untuk Negeri</h1>
-            <p>Mari bersama-sama menjadi bagian dari perubahan dengan memberikan suaramu pada pemilihan cawapres. Setiap
-                suara kita memiliki kekuatan untuk membentuk masa depan negara kita.</p>
-            <a href="#" class="cta">Tentukan Pilihanmu</a>
+            <p>Mari bersama-sama menjadi bagian dari perubahan dengan memberikan suaramu pada pemilihan presiden.</p>
+            <p>Setiap
+                suara kita memiliki kekuatan untuk membentuk masa depan negara kita</p>
+            <a href="coblos.php" class="cta btn btn-primary">Tentukan Pilihanmu</a>
+
         </main>
     </section>
 
     <!-- Partai Section start -->
     <section class="partai-slideshow" id="Partai">
-
-        <h1>TES Partai</h1>
-
+        <div class="container">
+            <h2 class="text-center mb-4 d-flex align-items-center justify-content-center" style="height: 80px;">
+                Kandidat Partai
+            </h2>
+            <div class="swiper-container" style="width: 100%;">
+                <div class="swiper-wrapper"
+                    style="display: flex; flex-wrap: nowrap; justify-content: center; padding: 0 20px;">
+                    <div class="swiper-slide" style="flex: 0 0 200px; margin: 0 10px;">
+                        <div class="card shadow">
+                            <!-- CSS inline untuk mengatur ukuran gambar -->
+                            <img src="Assets/pdip.jpg" class="card-img-top partai-image" alt="Partai 1"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                            <div class="card-body text-center">
+                                <h3>PDIP</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="flex: 0 0 200px; margin: 0 10px;">
+                        <div class="card shadow">
+                            <!-- CSS inline untuk mengatur ukuran gambar -->
+                            <img src="Assets/golkar.jpg" class="card-img-top partai-image" alt="Partai 2"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                            <div class="card-body text-center">
+                                <h3>Golkar</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="flex: 0 0 200px; margin: 0 10px;">
+                        <div class="card shadow">
+                            <!-- CSS inline untuk mengatur ukuran gambar -->
+                            <img src="Assets/pkb.jpg" class="card-img-top partai-image" alt="Partai 2"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                            <div class="card-body text-center">
+                                <h3>PKB</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="flex: 0 0 200px; margin: 0 10px;">
+                        <div class="card shadow">
+                            <!-- CSS inline untuk mengatur ukuran gambar -->
+                            <img src="Assets/nasdem.png" class="card-img-top partai-image" alt="Partai 2"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                            <div class="card-body text-center">
+                                <h3>NasDem</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="flex: 0 0 200px; margin: 0 10px;">
+                        <div class="card shadow">
+                            <!-- CSS inline untuk mengatur ukuran gambar -->
+                            <img src="Assets/gerindra.png" class="card-img-top partai-image" alt="Partai 2"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                            <div class="card-body text-center">
+                                <h3>Gerindra</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="flex: 0 0 200px; margin: 0 10px;">
+                        <div class="card shadow">
+                            <!-- CSS inline untuk mengatur ukuran gambar -->
+                            <img src="Assets/demokrat.png" class="card-img-top partai-image" alt="Partai 2"
+                                style="width: 100%; height: 200px; object-fit: cover;">
+                            <div class="card-body text-center">
+                                <h3>Demokrat</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tambahkan lebih banyak swiper-slide sesuai dengan jumlah partai yang ingin ditampilkan -->
+                </div>
+                <!-- Add Pagination -->
+                <!-- <div class="swiper-pagination"></div> -->
+            </div>
+        </div>
     </section>
     <!-- Partai Section end -->
 
@@ -125,6 +206,7 @@
     <!-- Kandidat Section end -->
 
 
+
     <!-- LOGIN Section start -->
 
     <!-- Login Section end -->
@@ -136,11 +218,17 @@
         feather.replace(); 
     </script>
 
-    <!-- My Javascript -->
-    <script src="js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+
+
+
+
+    < <!-- My Javascript -->
+        <script src="js/script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 
 </body>
 

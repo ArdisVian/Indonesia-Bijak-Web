@@ -10,13 +10,13 @@ $database = "dbcrud";
 $conn = mysqli_connect($server, $username, $password, $database);
 
 // Cek jika pengguna sudah login, jika ya, redirect ke halaman lain
-if (isset ($_SESSION['username'])) {
+if (isset($_SESSION['username'])) {
     header("Location: dashboard.php"); // Redirect ke halaman dashboard jika sudah login
     exit;
 }
 
 // Cek jika form login disubmit
-if (isset ($_POST['login'])) {
+if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -26,8 +26,8 @@ if (isset ($_POST['login'])) {
 
 
     // Query untuk memeriksa username dan password dalam tabel admin
-    $query_admin = "SELECT * FROM tadmin WHERE username = '$username'";
-    $result_admin = mysqli_query($conn, $query_admin);
+    // $query_admin = "SELECT * FROM tadmin WHERE username = '$username'";
+    // $result_admin = mysqli_query($conn, $query_admin);
 
     // Memeriksa apakah pengguna terdapat dalam tabel user
     if (mysqli_num_rows($result_user) == 1) {
@@ -36,10 +36,14 @@ if (isset ($_POST['login'])) {
         // Verifikasi password menggunakan password_verify()
         if (password_verify($password, $row['password'])) {
             $_SESSION['username'] = $row['username'];
+            $_SESSION['NIK'] = $row['NIK'];
 
             // Redirect ke halaman dashboard atau halaman lain sesuai dengan role pengguna
             if ($row['role'] == 'user') {
                 header("Location: user.php");
+                exit;
+            } elseif ($row['role'] == 'admin') {
+                header("Location: dashboard.php");
                 exit;
             }
         } else {
@@ -48,23 +52,23 @@ if (isset ($_POST['login'])) {
         }
     }
     // Memeriksa apakah pengguna terdapat dalam tabel admin
-    elseif (mysqli_num_rows($result_admin) == 1) {
-        $row = mysqli_fetch_assoc($result_admin);
+    // elseif (mysqli_num_rows($result_admin) == 1) {
+    //     $row = mysqli_fetch_assoc($result_admin);
 
-        // Membandingkan password yang dimasukkan dengan password yang disimpan dalam database
-        if ($password === $row['password']) {
-            $_SESSION['username'] = $row['username'];
+    //     // Membandingkan password yang dimasukkan dengan password yang disimpan dalam database
+    //     if ($password === $row['password']) {
+    //         $_SESSION['username'] = $row['username'];
 
-            // Redirect ke halaman dashboard atau halaman lain sesuai dengan role pengguna
-            if ($row['role'] == 'admin') {
-                header("Location: dashboard.php");
-                exit;
-            }
-        } else {
-            // Jika password tidak cocok, tampilkan pesan kesalahan
-            $error = "Username atau password salah!";
-        }
-    } else {
+    //         // Redirect ke halaman dashboard atau halaman lain sesuai dengan role pengguna
+    //         if ($row['role'] == 'admin') {
+    //             header("Location: dashboard.php");
+    //             exit;
+    //         }
+    //     } else {
+    //         // Jika password tidak cocok, tampilkan pesan kesalahan
+    //         $error = "Username atau password salah!";
+    //     }
+    else {
         // Jika pengguna tidak ditemukan di kedua tabel, tampilkan pesan kesalahan
         $error = "Username atau password salah!";
     }
@@ -120,7 +124,7 @@ if (isset ($_POST['login'])) {
                                 <input type="submit" name="login" id="signin" class="form-submit" value="Log in" />
                             </div>
                             <!-- Menampilkan pesan kesalahan jika ada -->
-                            <?php if (isset ($error)) { ?>
+                            <?php if (isset($error)) { ?>
                                 <div class="form-group">
                                     <p class="error-message">
                                         <?php echo $error; ?>

@@ -21,18 +21,6 @@ ENGINE=InnoDB
 AUTO_INCREMENT=8
 ;
 
-admin:
-CREATE TABLE `tadmin` (
-	`admin_id` INT(10) NOT NULL AUTO_INCREMENT,
-	`username` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`password` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`role` VARCHAR(50) NULL DEFAULT 'admin' COLLATE 'utf8mb4_0900_ai_ci',
-	PRIMARY KEY (`admin_id`) USING BTREE
-)
-COLLATE='utf8mb4_0900_ai_ci'
-ENGINE=InnoDB
-AUTO_INCREMENT=3
-;
 
 
 Partai:
