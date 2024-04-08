@@ -269,3 +269,12 @@ body {
     margin-bottom: 1rem;
     color: #333;
 }
+
+/*====================================*/
+
+.swiper-slide {
+    width: 200px;
+    /* Atur lebar sesuai kebutuhan */
+    height: 20px;
+    /* Atur tinggi sesuai kebutuhan atau biarkan otomatis */
+}
