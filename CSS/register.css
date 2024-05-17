@@ -1,19 +1,4 @@
 /* @extend display-flex; */
-
-.main {
-    background-image: url('https: //wallpapers.com/images/featured/light-red-uuedqr8jfdhfs3te.jpg');
-    /* Ganti dengan URL gambar latar belakang Anda */
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(8px);
-    /* Nilai blur dapat disesuaikan */
-}
-
 display-flex,
 .display-flex,
 .display-flex-center,
@@ -754,7 +739,5 @@ label.valid:after {
         margin-bottom: 10px;
     }
 }
-
-
 
 /*# sourceMappingURL=style.css.map */
