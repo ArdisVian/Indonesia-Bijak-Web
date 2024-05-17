@@ -20,7 +20,7 @@ COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=9
 ;
-_____________________________________________________________
+==========================================
 Pilihan_User:
 CREATE TABLE `pilihan_user` (
 	`pilihan_id` INT(10) NOT NULL AUTO_INCREMENT,
@@ -34,8 +34,7 @@ COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=5
 ;
-_____________________________________________________________
-
+==========================================
 Partai:
 CREATE TABLE `partai` (
 	`id_partai` INT(10) NULL DEFAULT NULL,
@@ -44,8 +43,7 @@ CREATE TABLE `partai` (
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
 ;
-_____________________________________________________________
-
+==========================================
 Kandidat Capres:
 CREATE TABLE `capres` (
 	`id_capres` INT(10) NULL DEFAULT NULL,
@@ -56,4 +54,3 @@ CREATE TABLE `capres` (
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
 ;
-_____________________________________________________________
